@@ -3,7 +3,7 @@ import cors from "cors";
 import pool from "./database.js";
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 
@@ -12,7 +12,7 @@ app.use(cors());
 app.get("/api/entry", async (req, res) => {
   try {
     const { rows } = await pool.query(
-      "SELECT data FROM entries ORDER BY id"
+      "SELECT data FROM entries ORDER BY pk"
     );
     res.json(rows.map((r) => r.data));
   } catch (err) {

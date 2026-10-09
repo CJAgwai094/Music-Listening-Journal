@@ -1,13 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { X, Plus, ChevronRight, Star, Search, Loader2 } from "lucide-react";
 import React from "react";
-import EntryData from "../../backend/data.json";
 
 const EMOTIONS = [
   "the emotion"
 ];
-
-const EntryBook: Entry[] = EntryData;
 
 interface Entry {
   id: string;
@@ -674,9 +671,21 @@ function AddEntryModal({ onClose, onSave, nextIndex }: {
 }
 
 export default function App() {
-  const [entries, setEntries] = useState<Entry[]>(EntryBook); // TODO: Replace SAMPLE_ENTRIES with persistent storage 
+  const [entries, setEntries] = useState<Entry[]>([]);
+  const [loading, setLoading] = useState(true); 
   const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
   const [showAdd, setShowAdd] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/entry")
+      .then((res) => {
+        if (!res.ok) throw new Error(`Server responded with ${res.status}`);
+        return res.json();
+      })
+      .then((data: Entry[]) => setEntries(data))
+      .catch((err) => console.error("Failed to load entries:", err))
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleSave = async (data: FormData) => {
     const newEntry: Entry = {
@@ -686,13 +695,16 @@ export default function App() {
     };
     setEntries((prev) => [...prev, newEntry]);
     try {
-      const response = await fetch("/api/post", {
+      const response = await fetch("/api/entry", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newEntry),
       });
+      if (!response.ok) {
+        throw new Error(`Server responded with ${response.status}`);
+      }
       console.log("Entry saved successfully:", response);
     } catch (error) {
       console.error("Failed to save entry:", error);
