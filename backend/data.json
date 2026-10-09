@@ -1,3 +1,16 @@
 [
-  
+  {
+    "album": "M",
+    "artist": "Ayumi Hamasaki",
+    "genre": "UK Garage",
+    "dateListened": "2026-10-09",
+    "rating": 3,
+    "emotions": [
+      "the emotion"
+    ],
+    "notes": "awc",
+    "coverArt": "https://i.discogs.com/7zA9cp3M2nhau6ji5GUPIQ1G31A-tQoGyfwJ85YmMEU/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTEyNDMy/MS0xMjI5MDAzOTk4/LmpwZWc.jpeg",
+    "id": "1791553340223",
+    "index": 1
+  }
 ]

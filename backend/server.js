@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
   res.json({ message: 'Hello World!' });
 });
 
-app.post('/post', (req, res) => {
+app.post('/api/post', (req, res) => {
   const newdata = req.body;
   console.log("Received data:", newdata);
   //read the existing file to get the current data

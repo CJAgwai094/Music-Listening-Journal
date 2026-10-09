@@ -686,7 +686,7 @@ export default function App() {
     };
     setEntries((prev) => [...prev, newEntry]);
     try {
-      const response = await fetch("http://localhost:3000/post", {
+      const response = await fetch("/api/post", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
