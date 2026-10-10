@@ -693,7 +693,7 @@ export default function App() {
       id: Date.now().toString(),
       index: entries.length + 1,
     };
-    setEntries((prev) => [...prev, newEntry]);
+    setEntries((prev) => [newEntry, ...prev, ]);
     try {
       const response = await fetch("/api/entry", {
         method: "POST",
