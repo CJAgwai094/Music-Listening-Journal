@@ -1,12 +1,9 @@
 
   # Music Listening Journal
 
-  a pretty simple music listening journal. mark down your thoughts about albums you listen to and give it a rating! :)
+  a pretty simple music listening journal. keeping track of my thoughts about albums I listen to and giving it a rating! :)
 
   ## Running the code
 
-  Run `npm i` to install the dependencies.
-
-  Run `npm run dev` to start the frontend development server.
-  
-  Run `npm start` in the backend folder to start the backend server. 
+  hosted on vercel.
+  https://music-listening-journal-umber.vercel.app/
