@@ -12,7 +12,7 @@ app.use(cors());
 app.get("/api/entry", async (req, res) => {
   try {
     const { rows } = await pool.query(
-      "SELECT data FROM entries ORDER BY pk"
+      "SELECT data FROM entries ORDER BY pk DESC"
     );
     res.json(rows.map((r) => r.data));
   } catch (err) {
