@@ -3,7 +3,26 @@ import { X, Plus, ChevronRight, Star, Search, Loader2 } from "lucide-react";
 import React from "react";
 
 const EMOTIONS = [
-  "the emotion"
+   // Sad / Dark Emotions
+  "mournful", 'dark', 'melancholic', 'bleak', 'evil',
+  //
+  // Warm / Nostalgic Emotions
+  'nostalgic', 'warm', 
+  //
+  // Energetic / Excited Emotions
+  'overwhelming', 'electric', 'pumped', "hyper",
+  //
+  // Contemplative Emotions
+  'contemplative', 'chill', 'calm', 'relaxed',
+  
+  // Anxious / Uneasy Emotions
+  'creeped-out', 'anxious', 'uneasy',
+
+  //Joyous Emotions
+  'joyful', 'delightful', 'merry',
+  //
+  //Miscellaneous Emotions
+  'swagalicious', 'trippy','ridiculous', 'vibey'
 ];
 
 interface Entry {
