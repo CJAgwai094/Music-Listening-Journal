@@ -22,7 +22,7 @@ const EMOTIONS = [
   'joyful', 'delightful', 'merry',
   //
   //Miscellaneous Emotions
-  'swagalicious', 'trippy','ridiculous', 'vibey'
+  'swagalicious', 'trippy','ridiculous', 'vibey', 'focused'
 ];
 
 interface Entry {
@@ -689,11 +689,50 @@ function AddEntryModal({ onClose, onSave, nextIndex }: {
   );
 }
 
+function LoginModal({ onClose, onSuccess }: { onClose: () => void; onSuccess: () => void }) {
+  const [passphrase, setPassphrase] = useState("");
+  const [error, setError] = useState("");
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ passphrase }),
+    });
+    if (res.ok) onSuccess();
+    else setError(res.status === 429 ? "Too many attempts, try later" : "Wrong passphrase");
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center" style={{ background: "rgba(14,12,10,0.97)" }}>
+      <form onSubmit={submit} className="w-full max-w-sm px-6">
+        <input
+          type="password"
+          autoFocus
+          value={passphrase}
+          onChange={(e) => setPassphrase(e.target.value)}
+          placeholder="Passphrase"
+          style={{ width: "100%", padding: "10px 12px", background: "var(--muted)", border: "1px solid var(--border)", color: "var(--foreground)" }}
+        />
+        {error && <p className="mt-2 text-muted-foreground">{error}</p>}
+        <div className="flex justify-end gap-4 mt-4">
+          <button type="button" onClick={onClose}>Cancel</button>
+          <button type="submit">Enter</button>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+
 export default function App() {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [loading, setLoading] = useState(true); 
   const [selectedEntry, setSelectedEntry] = useState<Entry | null>(null);
   const [showAdd, setShowAdd] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   useEffect(() => {
     fetch("/api/entry")
@@ -704,6 +743,15 @@ export default function App() {
       .then((data: Entry[]) => setEntries(data))
       .catch((err) => console.error("Failed to load entries:", err))
       .finally(() => setLoading(false));
+  }, []);
+
+
+
+  useEffect(() => {
+    fetch("/api/me")
+      .then((res) => res.json())
+      .then((d) => setIsAdmin(d.admin))
+      .catch(() => {});
   }, []);
 
   const handleSave = async (data: FormData) => {
@@ -723,7 +771,10 @@ export default function App() {
       });
       if (!response.ok) {
         throw new Error(`Server responded with ${response.status}`);
+      } else if (response.status === 401) {
+        setIsAdmin(false);
       }
+
       console.log("Entry saved successfully:", response);
     } catch (error) {
       console.error("Failed to save entry:", error);
@@ -745,7 +796,35 @@ export default function App() {
                 First Listens
               </h1>
             </div>
-            <button
+            {isAdmin ? (
+                  <button onClick={() => setShowAdd(true)}
+                  className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              style={{
+                fontFamily: "'DM Mono', monospace",
+                fontSize: 10,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                border: "1px solid var(--border)",
+                padding: "9px 16px",
+                background: "transparent",
+                cursor: "pointer",
+              }}><Plus size={11} />
+              Log Album</button>
+                ) : (
+                  <button onClick={() => setShowLogin(true)}
+                  className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              style={{
+                fontFamily: "'DM Mono', monospace",
+                fontSize: 10,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                border: "1px solid var(--border)",
+                padding: "9px 16px",
+                background: "transparent",
+                cursor: "pointer",
+              }}><Plus size={11} />Sign In</button>
+                )}
+            {/* <button
               onClick={() => setShowAdd(true)}
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
               style={{
@@ -761,7 +840,7 @@ export default function App() {
             >
               <Plus size={11} />
               Log Album
-            </button>
+            </button> */}
           </div>
           <p className="text-muted-foreground mt-5" style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.1em" }}>
             {entries.length} {entries.length === 1 ? "entry" : "entries"} recorded
@@ -797,6 +876,13 @@ export default function App() {
           onClose={() => setShowAdd(false)}
           onSave={handleSave}
           nextIndex={entries.length + 1}
+        />
+      )}
+
+      {showLogin && (
+        <LoginModal
+          onClose={() => setShowLogin(false)}
+          onSuccess={() => { setIsAdmin(true); setShowLogin(false); }}
         />
       )}
     </div>
