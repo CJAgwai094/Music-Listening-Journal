@@ -5,10 +5,11 @@ import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import rateLimit from "express-rate-limit";
 
-app.use(cookieParser());
-
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(cookieParser());
+app.use(express.json());
 
 const cookieOpts = {
   httpOnly: true,
@@ -58,11 +59,11 @@ app.post("/api/logout", (req, res) => {
 // Always 200, so the frontend can check login state without console errors
 app.get("/api/me", (req, res) => res.json({ admin: isAdmin(req) }));
 
-app.use(express.json());
 
 
 
-app.get("/api/entry",requireAdmin, async (req, res) => {
+
+app.get("/api/entry", async (req, res) => {
   try {
     const { rows } = await pool.query(
       "SELECT data FROM entries ORDER BY pk DESC"
@@ -74,7 +75,7 @@ app.get("/api/entry",requireAdmin, async (req, res) => {
   }
 });
 
-app.post("/api/entry", async (req, res) => {
+app.post("/api/entry", requireAdmin, async (req, res) => {
   try {
     await pool.query( "INSERT INTO entries (entry_id, data) VALUES ($1, $2) ON CONFLICT (entry_id) DO NOTHING", [String(req.body.id), req.body]);
     res.status(201).json({ ok: true });

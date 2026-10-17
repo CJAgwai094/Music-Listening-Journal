@@ -769,11 +769,12 @@ export default function App() {
         },
         body: JSON.stringify(newEntry),
       });
-      if (!response.ok) {
-        throw new Error(`Server responded with ${response.status}`);
-      } else if (response.status === 401) {
+      if (response.status === 401) {
         setIsAdmin(false);
       }
+      if (!response.ok) {
+        throw new Error(`Server responded with ${response.status}`);
+      } 
 
       console.log("Entry saved successfully:", response);
     } catch (error) {
@@ -790,10 +791,10 @@ export default function App() {
           <div className="flex items-end justify-between">
             <div>
               <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--accent)", marginBottom: 10, opacity: 0.85 }}>
-                Personal Archive
+                Personal Music Journal
               </p>
               <h1 className="text-foreground leading-none" style={{ fontFamily: "'Playfair Display', serif", fontSize: 44, fontWeight: 400 }}>
-                First Listens
+                Listens
               </h1>
             </div>
             {isAdmin ? (
@@ -824,23 +825,7 @@ export default function App() {
                 cursor: "pointer",
               }}><Plus size={11} />Sign In</button>
                 )}
-            {/* <button
-              onClick={() => setShowAdd(true)}
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-              style={{
-                fontFamily: "'DM Mono', monospace",
-                fontSize: 10,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                border: "1px solid var(--border)",
-                padding: "9px 16px",
-                background: "transparent",
-                cursor: "pointer",
-              }}
-            >
-              <Plus size={11} />
-              Log Album
-            </button> */}
+        
           </div>
           <p className="text-muted-foreground mt-5" style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.1em" }}>
             {entries.length} {entries.length === 1 ? "entry" : "entries"} recorded
@@ -855,7 +840,7 @@ export default function App() {
               No listens logged yet
             </p>
             <p className="text-muted-foreground uppercase" style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.12em" }}>
-              Start with the last album that stopped you in your tracks
+              Start with the last album that you listened to.
             </p>
           </div>
         ) : (
