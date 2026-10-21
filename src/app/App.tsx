@@ -124,7 +124,7 @@ function RatingStars({ rating, onChange }: { rating: number; onChange?: (r: numb
   );
 }
 
-function EntryCard({ entry, onClick }: { entry: Entry; onClick: () => void }) {
+function EntryCard({ entry, onClick }: { entry: Entry; onClick: () => void }) { // entry on main page
   return (
     <div
       onClick={onClick}
@@ -138,7 +138,7 @@ function EntryCard({ entry, onClick }: { entry: Entry; onClick: () => void }) {
           className="shrink-0 pt-0.5"
           style={{ fontFamily: "'DM Mono', monospace", fontSize: 11, color: "var(--muted-foreground)", width: 24 }}
         >
-          {String(entry.index).padStart(2, "0")}
+         
         </span>
 
         <AlbumArt index={entry.index} size={104} coverArt={entry.coverArt} />
@@ -199,7 +199,7 @@ function EntryCard({ entry, onClick }: { entry: Entry; onClick: () => void }) {
   );
 }
 
-function EntryDetail({ entry, onClose }: { entry: Entry; onClose: () => void }) {
+function EntryDetail({ entry, onClose }: { entry: Entry; onClose: () => void }) { // detail page when clicking an entry
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto" style={{ background: "rgba(14,12,10,0.97)", backdropFilter: "blur(8px)" }}>
       <div className="max-w-xl mx-auto px-6 py-14">
@@ -218,7 +218,7 @@ function EntryDetail({ entry, onClose }: { entry: Entry; onClose: () => void }) 
               className="mb-2"
               style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--accent)" }}
             >
-              First Listen No. {String(entry.index).padStart(2, "0")}
+              Listen No. {String(entry.index).padStart(2, "0")}
             </p>
             <h1
               className="text-foreground leading-tight"
@@ -503,7 +503,7 @@ function AddEntryModal({ onClose, onSave, nextIndex }: {
         <div className="flex items-start justify-between mb-10">
           <div>
             <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--accent)", marginBottom: 8 }}>
-              First Listen No. {String(nextIndex).padStart(2, "0")}
+              Listen No. {String(nextIndex).padStart(2, "0")}
             </p>
             <h2 className="text-foreground" style={{ fontFamily: "'Playfair Display', serif", fontSize: 30, fontWeight: 400 }}>
               Log a New Listen
