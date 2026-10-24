@@ -114,7 +114,7 @@ function RatingStars({ rating, onChange }: { rating: number; onChange?: (r: numb
           type="button"
           onClick={() => onChange?.(n)}
           className={`transition-colors ${onChange ? "cursor-pointer" : "cursor-default"} ${
-            n <= rating ? "text-amber-400" : "text-foreground/15"
+            n <= rating ? "text-accent" : "text-foreground/15"
           }`}
         >
           <Star size={13} fill={n <= rating ? "currentColor" : "none"} strokeWidth={1.5} />
@@ -147,7 +147,7 @@ function EntryCard({ entry, onClick }: { entry: Entry; onClick: () => void }) { 
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
               <h3
-                className="leading-tight text-foreground group-hover:text-amber-300 transition-colors truncate"
+                className="leading-tight text-foreground group-hover:text-accent transition-colors truncate"
                 style={{ fontFamily: "'Playfair Display', serif", fontSize: 20, fontWeight: 400 }}
               >
                 {entry.album}
@@ -174,7 +174,7 @@ function EntryCard({ entry, onClick }: { entry: Entry; onClick: () => void }) { 
             {entry.emotions.slice(0, 5).map((e) => (
               <span
                 key={e}
-                className="border border-border text-muted-foreground uppercase"
+                className="border border-border text-muted-foreground group-hover:text-accent uppercase"
                 style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: "0.1em", padding: "2px 8px" }}
               >
                 {e}
@@ -183,7 +183,7 @@ function EntryCard({ entry, onClick }: { entry: Entry; onClick: () => void }) { 
           </div>
 
           <p
-            className="mt-2.5 text-muted-foreground leading-relaxed line-clamp-2"
+            className="mt-2.5 text-muted-foreground  leading-relaxed line-clamp-2"
             style={{ fontFamily: "'Playfair Display', serif", fontSize: 13, fontStyle: "italic" }}
           >
             {entry.notes}
@@ -192,7 +192,7 @@ function EntryCard({ entry, onClick }: { entry: Entry; onClick: () => void }) { 
 
         <ChevronRight
           size={14}
-          className="shrink-0 mt-1 text-muted-foreground group-hover:text-amber-400 transition-colors"
+          className="shrink-0 mt-1 text-muted-foreground group-hover:text-accent transition-colors"
         />
       </div>
     </div>
@@ -240,7 +240,7 @@ function EntryDetail({ entry, onClose }: { entry: Entry; onClose: () => void }) 
             { label: "Date Heard", value: formatDate(entry.dateListened) },
             { label: "Genre", value: entry.genre || "—" },
           ].map(({ label, value }) => (
-            <div key={label} className="bg-background p-4">
+            <div key={label} className="bg-card  p-4">
               <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted-foreground)", marginBottom: 6 }}>
                 {label}
               </p>
@@ -249,7 +249,7 @@ function EntryDetail({ entry, onClose }: { entry: Entry; onClose: () => void }) 
               </p>
             </div>
           ))}
-          <div className="bg-background p-4">
+          <div className="bg-card p-4">
             <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted-foreground)", marginBottom: 6 }}>
               Rating
             </p>
@@ -271,8 +271,8 @@ function EntryDetail({ entry, onClose }: { entry: Entry; onClose: () => void }) 
                   fontSize: 10,
                   letterSpacing: "0.1em",
                   padding: "5px 12px",
-                  border: "1px solid rgba(201,151,58,0.4)",
-                  color: "rgba(201,151,58,0.9)",
+                  border: "1px solid #42461d",
+                  color: "#6f732f",
                 }}
               >
                 {e}
@@ -623,9 +623,9 @@ function AddEntryModal({ onClose, onSave, nextIndex }: {
                       letterSpacing: "0.1em",
                       textTransform: "uppercase",
                       padding: "5px 10px",
-                      border: `1px solid ${selected ? "rgba(201,151,58,0.6)" : "var(--border)"}`,
+                      border: `1px solid ${selected ? "#42461d" : "var(--border)"}`,
                       background: selected ? "rgba(201,151,58,0.1)" : "transparent",
-                      color: selected ? "rgba(201,151,58,0.95)" : "var(--muted-foreground)",
+                      color: selected ? "#6f732f" : "var(--muted-foreground)",
                       cursor: "pointer",
                       transition: "all 0.15s",
                     }}
