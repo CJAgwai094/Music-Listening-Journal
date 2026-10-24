@@ -240,7 +240,7 @@ function EntryDetail({ entry, onClose }: { entry: Entry; onClose: () => void }) 
             { label: "Date Heard", value: formatDate(entry.dateListened) },
             { label: "Genre", value: entry.genre || "—" },
           ].map(({ label, value }) => (
-            <div key={label} className="bg-background p-4">
+            <div key={label} className="bg-card  p-4">
               <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted-foreground)", marginBottom: 6 }}>
                 {label}
               </p>
@@ -249,7 +249,7 @@ function EntryDetail({ entry, onClose }: { entry: Entry; onClose: () => void }) 
               </p>
             </div>
           ))}
-          <div className="bg-background p-4">
+          <div className="bg-card p-4">
             <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--muted-foreground)", marginBottom: 6 }}>
               Rating
             </p>
