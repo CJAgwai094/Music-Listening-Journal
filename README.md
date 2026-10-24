@@ -5,5 +5,5 @@
 
   ## Running the code
 
-  hosted on vercel.
+  hosted with vercel.
   https://music-listening-journal-umber.vercel.app/
