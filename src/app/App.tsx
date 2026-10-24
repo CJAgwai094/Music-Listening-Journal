@@ -791,10 +791,10 @@ export default function App() {
           <div className="flex items-end justify-between">
             <div>
               <p style={{ fontFamily: "'DM Mono', monospace", fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--accent)", marginBottom: 10, opacity: 0.85 }}>
-                Personal Music Journal
+                My Personal Music Journal
               </p>
               <h1 className="text-foreground leading-none" style={{ fontFamily: "'Playfair Display', serif", fontSize: 44, fontWeight: 400 }}>
-                Listens
+                CJ's Listens
               </h1>
             </div>
             {isAdmin ? (
